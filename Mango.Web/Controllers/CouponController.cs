@@ -63,6 +63,11 @@ namespace Mango.Web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> CouponCreate()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> CouponDelete(CouponDto model)
         {
