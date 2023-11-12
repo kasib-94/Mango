@@ -15,11 +15,11 @@ SD.CouponApiBase = builder.Configuration["ServiceUrls:CouponApi"];
 SD.AuthApiBase = builder.Configuration["ServiceUrls:AuthApi"];
 SD.ProductApiBase = builder.Configuration["ServiceUrls:ProductApi"];
 SD.ShoppingCartApiBase = builder.Configuration["ServiceUrls:ShoppingCartApi"];
-
+SD.OrderApiBase = builder.Configuration["ServiceUrls:OrderAPI"];
 
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<ICartService, CartService>();
-
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
