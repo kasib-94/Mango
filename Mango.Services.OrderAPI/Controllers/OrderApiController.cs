@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using Stripe;
+using Stripe.Checkout;
+
 namespace Mango.Services.OrderAPI.Controllers
 {
     [Route("api/order")]
@@ -135,8 +138,8 @@ namespace Mango.Services.OrderAPI.Controllers
                     {
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            UnitAmount = (long)(item.Price * 100), // $20.99 -> 2099
-                            Currency = "usd",
+                            UnitAmount = (long)(item.Price * 100),
+                            Currency = "pln",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
                                 Name = item.Product.Name
@@ -187,18 +190,12 @@ namespace Mango.Services.OrderAPI.Controllers
 
                 if (paymentIntent.Status == "succeeded")
                 {
-                    //then payment was successful
                     orderHeader.PaymentIntentId = paymentIntent.Id;
                     orderHeader.Status = SD.Status_Approved;
                     _db.SaveChanges();
-                    RewardsDto rewardsDto = new()
-                    {
-                        OrderId = orderHeader.OrderHeaderId,
-                        RewardsActivity = Convert.ToInt32(orderHeader.OrderTotal),
-                        UserId = orderHeader.UserId
-                    };
+
                     string topicName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
-                    await _messageBus.PublishMessage(rewardsDto, topicName);
+
                     _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
                 }
 

@@ -68,6 +68,7 @@ app.MapControllers();
 ApplyMigration();
 app.Run();
 
+Stripe.StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 void ApplyMigration()
 {
     using (var scope = app.Services.CreateScope())
