@@ -38,6 +38,8 @@ namespace Mango.Services.OrderAPI.Controllers
             _configuration = configuration;
         }
 
+
+
         [Authorize]
         [HttpGet("GetOrders")]
         public ResponseDto? Get(string? userId = "")
@@ -226,7 +228,6 @@ namespace Mango.Services.OrderAPI.Controllers
                 {
                     if (newStatus == SD.Status_Cancelled)
                     {
-                        //we will give refund
                         var options = new RefundCreateOptions
                         {
                             Reason = RefundReasons.RequestedByCustomer,
