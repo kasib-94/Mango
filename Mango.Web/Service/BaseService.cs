@@ -5,6 +5,7 @@ using Mango.Web.Service.IService;
 
 using Newtonsoft.Json;
 
+using static Mango.Web.Utility.SD;
 
 namespace Mango.Web.Service
 {
@@ -24,7 +25,14 @@ namespace Mango.Web.Service
             {
                 HttpClient client = _httpClientFactory.CreateClient("MangoAPI");
                 HttpRequestMessage messege = new();
-                messege.Headers.Add("Accept", "application/json");
+                if (requestDto.ContentType == ContentType.MultipartFormData)
+                {
+                    messege.Headers.Add("Accept", "*/*");
+                }
+                else
+                {
+                    messege.Headers.Add("Accept", "application/json");
+                }
 
                 if (withBearer)
                 {
@@ -33,9 +41,38 @@ namespace Mango.Web.Service
                 }
 
                 messege.RequestUri = new Uri(requestDto.Url);
-                if (requestDto.Data != null)
+
+
+
+
+                if (requestDto.ContentType == ContentType.MultipartFormData)
                 {
-                    messege.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
+                    var content = new MultipartFormDataContent();
+
+                    foreach (var prop in requestDto.Data.GetType().GetProperties())
+                    {
+                        var value = prop.GetValue(requestDto.Data);
+                        if (value is FormFile)
+                        {
+                            var file = (FormFile)value;
+                            if (file != null)
+                            {
+                                content.Add(new StreamContent(file.OpenReadStream()), prop.Name, file.FileName);
+                            }
+                        }
+                        else
+                        {
+                            content.Add(new StringContent(value == null ? "" : value.ToString()), prop.Name);
+                        }
+                    }
+                    messege.Content = content;
+                }
+                else
+                {
+                    if (requestDto.Data != null)
+                    {
+                        messege.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
+                    }
                 }
 
                 HttpResponseMessage? apiResponse = null;

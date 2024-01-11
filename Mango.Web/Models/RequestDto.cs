@@ -8,5 +8,7 @@ namespace Mango.Web.Models
         public string Url { get; set; }
         public object Data { get; set; }
         public string AccessToken { get; set; }
+
+        public Utility.SD.ContentType ContentType { get; set; } = Utility.SD.ContentType.Json;
     }
 }
