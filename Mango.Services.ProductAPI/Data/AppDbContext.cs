@@ -18,20 +18,21 @@ namespace Mango.Services.ProductAPI.Data
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 ProductId = 1,
-                Name = "Samosa",
-                Price = 15,
+                Name = "Ciasto",
+                Price = 25,
                 Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                ImageUrl = "https://placehold.co/603x403",
+                ImageUrl = "https://localhost:7000/ProductImages/ciasto1.jpg",
                 CategoryName = "Appetizer"
             });
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 ProductId = 2,
-                Name = "Paneer Tikka",
-                Price = 13.99,
+                Name = " Sernik ",
+                Price = 35.99,
                 Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                ImageUrl = "https://placehold.co/602x402",
-                CategoryName = "Appetizer"
+                ImageUrl = "https://localhost:7000/ProductImages/sernik.jpg",
+                CategoryName = "Appetizer",
+
             });
             modelBuilder.Entity<Product>().HasData(new Product
             {
@@ -39,18 +40,10 @@ namespace Mango.Services.ProductAPI.Data
                 Name = "Sweet Pie",
                 Price = 10.99,
                 Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                ImageUrl = "https://placehold.co/601x401",
+                ImageUrl = "https://localhost:7000/ProductImages/ciasto2.jpg",
                 CategoryName = "Dessert"
             });
-            modelBuilder.Entity<Product>().HasData(new Product
-            {
-                ProductId = 4,
-                Name = "Pav Bhaji",
-                Price = 15,
-                Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                ImageUrl = "https://placehold.co/600x400",
-                CategoryName = "Entree"
-            });
+
 
         }
     }

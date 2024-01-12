@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mango.Services.ProductAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230930195919_Adding_Product")]
-    partial class Adding_Product
+    [Migration("20240112143030_AddingProduct")]
+    partial class AddingProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,8 +40,10 @@ namespace Mango.Services.ProductAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageLocalPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -61,36 +63,27 @@ namespace Mango.Services.ProductAPI.Migrations
                             ProductId = 1,
                             CategoryName = "Appetizer",
                             Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                            ImageUrl = "https://placehold.co/603x403",
-                            Name = "Samosa",
-                            Price = 15.0
+                            ImageUrl = "https://localhost:7000/ProductImages/ciasto1.jpg",
+                            Name = "Ciasto",
+                            Price = 25.0
                         },
                         new
                         {
                             ProductId = 2,
                             CategoryName = "Appetizer",
                             Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                            ImageUrl = "https://placehold.co/602x402",
-                            Name = "Paneer Tikka",
-                            Price = 13.99
+                            ImageUrl = "https://localhost:7000/ProductImages/sernik.jpg",
+                            Name = " Sernik ",
+                            Price = 35.990000000000002
                         },
                         new
                         {
                             ProductId = 3,
                             CategoryName = "Dessert",
                             Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                            ImageUrl = "https://placehold.co/601x401",
+                            ImageUrl = "https://localhost:7000/ProductImages/ciasto2.jpg",
                             Name = "Sweet Pie",
                             Price = 10.99
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            CategoryName = "Entree",
-                            Description = " Quisque vel lacus ac magna, vehicula sagittis ut non lacus.<br/> Vestibulum arcu turpis, maximus malesuada neque. Phasellus commodo cursus pretium.",
-                            ImageUrl = "https://placehold.co/600x400",
-                            Name = "Pav Bhaji",
-                            Price = 15.0
                         });
                 });
 #pragma warning restore 612, 618

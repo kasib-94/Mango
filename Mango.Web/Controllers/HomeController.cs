@@ -44,7 +44,7 @@ namespace Mango.Web.Controllers
         public async Task<IActionResult> ProductDetails(int productId)
         {
             ProductDto? item = new();
-            ResponseDto? response = await _productService.GetProductByIdAsync(productId);
+            ResponseDto? response = await _productService.GetProductsByIdAsync(productId);
             if (response != null && response.IsSuccess)
             {
 

@@ -5,6 +5,7 @@ namespace Mango.Web.Models
     public class RegistrationRequestDto
     {
         [Required]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; }
         [Required]
         public string Name { get; set; }
